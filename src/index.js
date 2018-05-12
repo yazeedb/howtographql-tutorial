@@ -1,6 +1,6 @@
 const { GraphQLServer } = require('graphql-yoga');
-const { always, find, merge, pick, pipe, propEq } = require('ramda');
-const links = require('./links.json');
+const { always, find, merge, pick, pipe, propEq, when } = require('ramda');
+let links = require('./links.json');
 
 const resolvers = {
   Query: {
@@ -17,7 +17,23 @@ const resolvers = {
 
         return link;
       }
-    )(args)
+    )(args),
+    updateLink: (root, args) => {
+      let newLink;
+
+      links.map(
+        when(
+          propEq('id', args.id),
+          (link) => {
+            newLink = merge(link, args);
+
+            return newLink;
+          }
+        )
+      );
+
+      return newLink;
+    }
   }
 };
 
