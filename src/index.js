@@ -4,7 +4,8 @@ const links = require('./links.json');
 
 const resolvers = {
   Query: {
-    links: always(links)
+    links: always(links),
+    link: (root, { id }) => links.find((link) => link.id === id)
   }
 };
 

@@ -1,5 +1,6 @@
 type Query {
   links: [Link!]
+  link(id: ID!): Link
 }
 
 type Link {
