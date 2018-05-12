@@ -8,11 +8,11 @@ const resolvers = {
     link: (root, { id }) => links.find((link) => link.id === id)
   },
   Mutation: {
-    post: (root, args) => {
+    post: (root, { description, length, url }) => {
       const link = {
         id: `link-${links.length}`,
-        description: args.description,
-        url: args.url
+        description,
+        url
       }
 
       links.push(link);
@@ -28,4 +28,3 @@ const server = new GraphQLServer({
 })
 
 server.start(() => console.log('Running on port 4000'))
-// server.start(console.log)
