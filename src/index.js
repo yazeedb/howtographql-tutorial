@@ -1,5 +1,5 @@
 const { GraphQLServer } = require('graphql-yoga');
-const { always, find, propEq } = require('ramda');
+const { always, find, merge, pick, pipe, propEq } = require('ramda');
 const links = require('./links.json');
 
 const resolvers = {
@@ -8,17 +8,16 @@ const resolvers = {
     link: (root, { id }) => find(propEq('id', id), links)
   },
   Mutation: {
-    post: (root, { url, description }) => {
-      const link = {
-        id: `link-${links.length}`,
-        url,
-        description
-      };
+    post: (root, args) => pipe(
+      pick(['url', 'description']),
+      merge({ id: `link-${links.length}` }),
+      (link) => {
+        // OMG side-effect! O_o"
+        links.push(link);
 
-      links.push(link);
-
-      return link;
-    }
+        return link;
+      }
+    )(args)
   }
 };
 
