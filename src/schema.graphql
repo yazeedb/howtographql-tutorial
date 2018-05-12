@@ -1,12 +1,5 @@
 type Query {
-  info: String!
-  feed: [Link!]
-  link(id: ID!): Link
-}
-
-type Mutation {
-  post(url: String!, description: String!): Link!
-  updateLink(id: ID!, description: String, url: String): Link
+  links: [Link!]
 }
 
 type Link {
@@ -14,3 +7,22 @@ type Link {
   description: String!
   url: String!
 }
+
+
+
+# type Query {
+#   info: String!
+#   feed: [Link!]
+#   link(id: ID!): Link
+# }
+#
+# type Mutation {
+#   post(url: String!, description: String!): Link!
+#   updateLink(id: ID!, description: String, url: String): Link
+# }
+#
+# type Link {
+#   id: ID!
+#   description: String!
+#   url: String!
+# }
