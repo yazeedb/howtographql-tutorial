@@ -8,7 +8,7 @@ const resolvers = {
     link: (root, { id }) => links.find((link) => link.id === id)
   },
   Mutation: {
-    post: (root, { description, length, url }) => {
+    post: (root, { description, url }) => {
       const link = {
         id: `link-${links.length}`,
         description,
