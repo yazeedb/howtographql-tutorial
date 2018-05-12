@@ -13,6 +13,7 @@
     "express": "^4.16.3",
     "express-graphql": "^0.6.12",
     "graphql": "^0.13.2",
-    "graphql-yoga": "^1.13.1"
+    "graphql-yoga": "^1.13.1",
+    "ramda": "^0.25.0"
   }
 }
