@@ -6,13 +6,26 @@ const resolvers = {
   Query: {
     links: always(links),
     link: (root, { id }) => find(propEq('id', id), links)
+  },
+  Mutation: {
+    post: (root, { url, description }) => {
+      const link = {
+        id: `link-${links.length}`,
+        url,
+        description
+      };
+
+      links.push(link);
+
+      return link;
+    }
   }
 };
 
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
   resolvers
-})
+});
 
 server.start(() => console.log('Running on port 4000'))
 
