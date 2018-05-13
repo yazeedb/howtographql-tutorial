@@ -1,6 +1,7 @@
 type Query {
   links: [Link!]
 }
+
 type Link {
   id: ID!
   description: String!
