@@ -23,9 +23,9 @@ const resolvers = {
     updateLink: (root, args) => {
       let newLink;
 
-      links.map(
+      links = links.map(
         when(
-          propEq('id', args.id),
+          idEq(args.id),
           (link) => {
             newLink = merge(link, args);
 
