@@ -3,6 +3,7 @@ const { find, merge, pick, pipe, propEq, when } = require('ramda');
 let links = require('./links.json');
 
 const idEq = propEq('id');
+const doIfMatchingId = (id) => when(idEq(id));
 
 const resolvers = {
   Query: {
@@ -24,17 +25,27 @@ const resolvers = {
       let newLink;
 
       links = links.map(
-        when(
-          idEq(args.id),
-          (link) => {
-            newLink = merge(link, args);
-
-            return newLink;
-          }
-        )
+        doIfMatchingId((link) => {
+          newLink = merge(link, args);
+          return newLink;
+        })
       );
 
       return newLink;
+    },
+    deleteLink: (root, { id }) => {
+      let linkToDelete;
+
+      links.forEach((link, index) => {
+        const matchAndRemove = (match) => {
+          linkToDelete = match;
+          links.splice(index, 1);
+        };
+
+        return doIfMatchingId(id)(matchAndRemove, link);
+      });
+
+      return linkToDelete;
     }
   }
 };
