@@ -23,13 +23,12 @@ const resolvers = {
     )(args),
     updateLink: (root, args) => {
       let newLink;
+      const updateLink = (link) => {
+        newLink = merge(link, args);
+        return newLink;
+      };
 
-      links = links.map(
-        doIfMatchingId((link) => {
-          newLink = merge(link, args);
-          return newLink;
-        })
-      );
+      links = links.map(doIfMatchingId(args.id)(updateLink));
 
       return newLink;
     },
