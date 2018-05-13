@@ -1,10 +1,10 @@
 const { GraphQLServer } = require('graphql-yoga');
-const { always, find, merge, pick, pipe, propEq, when } = require('ramda');
+const { find, merge, pick, pipe, propEq, when } = require('ramda');
 let links = require('./links.json');
 
 const resolvers = {
   Query: {
-    links: always(links),
+    links: () => links,
     link: (root, { id }) => find(propEq('id', id), links)
   },
   Mutation: {
